@@ -73,7 +73,7 @@ resource "aws_lb_listener" "flaskapp_listener_https_redirect" {
 
 resource "aws_launch_configuration" "as_conf" {
 image_id = "ami-0fb2f0b847d44d4f0"
-iam_instance_profile = aws_iam_instance_profile.ecs_agent.name
+
 security_groups = [aws_security_group.flaskapp_sg.id]
 user_data = "#!/bin/bash\necho ECS_CLUSTER=flaskapp_cluster >> /etc/ecs/ecs.config"
 instance_type = "t2.micro"
