@@ -74,6 +74,7 @@ resource "aws_lb_listener" "flaskapp_listener_https_redirect" {
 resource "aws_launch_configuration" "as_conf" {
 image_id = "ami-0fb2f0b847d44d4f0"
 iam_instance_profile = aws_iam_instance_profile.ecs-agent.name
+associate_public_ip_address = true
 security_groups = [aws_security_group.flaskapp_sg.id]
 user_data = "#!/bin/bash\necho ECS_CLUSTER=flaskapp_cluster >> /etc/ecs/ecs.config"
 instance_type = "t2.micro"
@@ -92,7 +93,7 @@ resource "aws_autoscaling_group" "ecs_asg" {
 name = "asg"
 vpc_zone_identifier = [aws_subnet.public_1.id, aws_subnet.public_2.id]
 launch_configuration = aws_launch_configuration.as_conf.name
-associate_public_ip_address = true
+
 desired_capacity = 2
 min_size = 1
 max_size = 10
