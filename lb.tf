@@ -92,6 +92,7 @@ resource "aws_autoscaling_group" "ecs_asg" {
 name = "asg"
 vpc_zone_identifier = [aws_subnet.public_1.id, aws_subnet.public_2.id]
 launch_configuration = aws_launch_configuration.as_conf.name
+associate_public_ip_address = true
 desired_capacity = 2
 min_size = 1
 max_size = 10
